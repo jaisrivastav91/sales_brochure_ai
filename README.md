@@ -17,13 +17,14 @@ Perfect for sales teams, recruiters, and business development professionals who 
 - 🤖 **AI-Powered Link Selection**: Intelligently identifies relevant company pages using LLM
 - 📝 **Dynamic Brochure Generation**: Creates professional Markdown brochures with company culture, customer info, and career details
 - 🎯 **Streaming Support**: Real-time brochure generation with live updates
+- 🌐 **Gradio Web Interface**: Interactive web UI for easy brochure generation without coding
 - 🔧 **Flexible LLM Integration**: Works with any OpenAI-compatible API (OpenAI, Ollama, LM Studio, etc.)
 - 📚 **Jupyter Notebook Interface**: Easy-to-use interactive notebook for brochure generation
 
 ## Project Structure
 
 ```
-sales_brochure_ai/
+sales_brochure/
 ├── notebooks/
 │   └── brochure.ipynb          # Interactive Jupyter notebook for testing
 ├── src/
@@ -63,7 +64,7 @@ sales_brochure_ai/
    
    Or with pip install all at once:
    ```bash
-   pip install openai python-dotenv beautifulsoup4 requests
+   pip install openai python-dotenv beautifulsoup4 requests gradio
    ```
 
 4. **Configure environment variables**:
@@ -152,6 +153,23 @@ For development with free, open-source models:
    stream_brochure(openai, os.getenv("MODEL"), w)
    ```
 
+### Via Gradio Web Interface
+
+1. **Install Gradio** (if not already installed):
+   ```bash
+   pip install gradio
+   ```
+
+2. **Run the Gradio interface** from the notebook:
+   - Open `notebooks/brochure.ipynb`
+   - Run all cells up to the "Visualization of the brochure through Gradio" section
+   - The web interface will launch automatically
+
+3. **Use the web interface**:
+   - Enter the company name and website URL
+   - Click "Submit" to generate the brochure
+   - Watch the brochure content stream in real-time
+
 ### Via Python Script
 
 ```python
@@ -214,6 +232,14 @@ stream_brochure(client, model: str, website: Website)
 
 Generates and streams brochure content in real-time (best for notebooks).
 
+### `stream_brochure_gradio()`
+
+```python
+stream_brochure_gradio(client, model: str, website: Website)
+```
+
+Generates and streams brochure content in real-time, yielding chunks for Gradio web interface integration.
+
 ### `select_relevant_links()`
 
 ```python
@@ -271,3 +297,4 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))  # In scripts
 - **beautifulsoup4**: HTML parsing and web scraping
 - **requests**: HTTP library for fetching web pages
 - **python-dotenv**: Environment variable management
+- **gradio**: Web interface for interactive brochure generation
