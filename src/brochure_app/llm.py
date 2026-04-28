@@ -110,3 +110,18 @@ def stream_brochure(client, model, w: Website):
     for chunk in stream:
         response += chunk.choices[0].delta.content or ''
         update_display(Markdown(response), display_id=display_handle.display_id)
+
+def stream_brochure_gradio(client, model, w: Website):
+    stream = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": brochure_system_prompt},
+            {"role": "user", "content": get_brochure_user_prompt(client, model, w)},
+        ],
+        stream=True,
+    )    
+    response = ""
+    for chunk in stream:
+        delta = chunk.choices[0].delta.content or ""
+        response += delta
+        yield response
